@@ -8,4 +8,17 @@ class Letter
     #lowercase letters are the unchanged letters, upcase is solved letters
     if itself == "'" || itself == '-'
       @name = itself
-      @possible
+      @possibles = Set[itself]
+      @possibles.freeze
+    else
+      @name = itself.downcase
+      @possibles = Set.new
+      @possibles = %w[ E T A O I N S H R D L C U M W F G Y P B V K J X Q Z ]
+      @possibles.delete(itself.upcase)
+    end
+  end
+
+  def singular?
+    @possibles.length == 1
+  end
+end
