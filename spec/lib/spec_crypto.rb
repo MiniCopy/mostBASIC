@@ -56,4 +56,18 @@ subject {test_solver}
     test_solver.puzzle_list = test_solver.get_puzzles()
     puzz = test_solver.puzzle_list[1]
     puzz.crypto_broken.length.should be > 0
-    puzz.crypto_broken[0].length.should < puzz.crypto
+    puzz.crypto_broken[0].length.should < puzz.crypto_broken[-1].length
+    puzz.crypto_broken[1].length.should < puzz.crypto_broken[-2].length
+    puzz.crypto_broken[2].length.should <= puzz.crypto_broken[3].length
+    puzz.crypto_broken[3].length.should <= puzz.crypto_broken[4].length
+  end
+
+  it "should return letter objects from the let_list hash" do
+    test_solver.set_letters([*('a'..'z')].join)
+    test_solver.let_list['g'].should be_kind_of(Letter)
+    test_solver.let_list['g'].should respond_to(:name, :possible)
+  end
+
+  it "should be able to switch a dictionary for a word" do
+    subject.set_letters(subject.puzzle_list[5].full_uniques)
+    solver_test_word = subject.puzzle_list[5].crypto_broken
