@@ -46,4 +46,14 @@ subject {test_solver}
   end
 
   it 'should split the string at the /[.?!]"* - / point' do
-    a, b = test_solver.seperate_author("UWDC W FXWYFC! WI
+    a, b = test_solver.seperate_author("UWDC W FXWYFC! WII IREC RA W FXWYFC. UXC QWY LXB MBCA EVZUXCAU RA MCYCZWIIH UXC BYC LXB RA LRIIRYM UB TB WYT TWZC. - TWIC FWZYCMRC")
+    a.should eq("UWDC W FXWYFC WII IREC RA W FXWYFC UXC QWY LXB MBCA EVZUXCAU RA MCYCZWIIH UXC BYC LXB RA LRIIRYM UB TB WYT TWZC".downcase)
+    b.should eq("TWIC FWZYCMRC".downcase)
+    #also converts to downcase for puzzle... UPCASE reserved for solved letters
+  end
+
+  it "should start a puzzle by splitting and sorting words" do
+    test_solver.puzzle_list = test_solver.get_puzzles()
+    puzz = test_solver.puzzle_list[1]
+    puzz.crypto_broken.length.should be > 0
+    puzz.crypto_broken[0].length.should < puzz.crypto
