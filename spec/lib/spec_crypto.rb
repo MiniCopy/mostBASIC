@@ -70,4 +70,16 @@ subject {test_solver}
 
   it "should be able to switch a dictionary for a word" do
     subject.set_letters(subject.puzzle_list[5].full_uniques)
-    solver_test_word = subject.puzzle_list[5].crypto_broken
+    solver_test_word = subject.puzzle_list[5].crypto_broken[-1]
+    solver_test_word = Word.new(solver_test_word, subject.dicts)
+
+    stw_pos_len = solver_test_word.possibles.length
+    solver_test_word.possibles = subject.try_dictionary(solver_test_word, subject.name_dict)
+    stw_pos_len.should_not eq(solver_test_word.possibles.length)
+
+    solver_test_word.possibles = subject.try_dictionary(solver_test_word, subject.pop_dict)
+    stw_pos_len.should_not eq(solver_test_word.possibles.length)
+  end
+
+end
+
