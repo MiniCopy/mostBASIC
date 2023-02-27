@@ -26,4 +26,23 @@ describe Word do
 
   subject {test_word}
 
-  it { should respond_to( :name, :uniques, :u_length, :length, :possibles, :pattern_value, :curr
+  it { should respond_to( :name, :uniques, :u_length, :length, :possibles, :pattern_value, :current_dict)}
+
+  it "should be able to get a list of possible words from a dictionary" do
+  	test_word.find_possibles(test_dict).should eq(%w[CANCELOUS CANCEROUS])  	
+  	test_word.possibles.each { |p|
+  		test_word.u_length.should eql(unique_ify(p).length)
+  		test_word.pattern_value.should eql(pattern_create(p))
+  	  }
+  end	
+
+  its (:length) { should eq(9)}
+  its (:u_length) { should eq(8)}
+  its (:pattern_value) { should eq(pattern_create("CANCELOUS"))}
+	its (:which_dictionary?) { eq("Test Dictionary")  }
+
+	it "should respond with a string containing the Dictionary name, from which_dictionary?" do
+  	expect(subject.which_dictionary?).to be_an_instance_of(String)
+  end
+
+end
