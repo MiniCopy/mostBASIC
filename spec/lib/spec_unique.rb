@@ -16,4 +16,12 @@ describe Unique do
 	end
 
 	it "should be able to create patterns" do
-		test_u_word.pattern = pat
+		test_u_word.pattern = pattern_create(test_u_word.name)
+		test_u_word.pattern.should eq(pattern_create("barbi"))
+		pattern_match?("abc", "abb").should be_false
+		pattern_match?("aaron", "bblzn").should be_true
+		pattern_match?("lincoln", "Lincoln").should be_false
+		pattern_match?("lincoln", "pincopn").should be_true
+	end
+
+end
