@@ -22,4 +22,11 @@ describe Puzzle do
     p = Puzzle.new("ABCDDDDDD",
       "DDDEEEEEF",
       Date.parse("Thu, 27 Sep 2012 23:45:00 -0400"))
-    p.uniqu
+    p.uniques.should be_true
+    p.uniques.should be == "ABCD"
+    p.uniques.length.should eq(4)
+    p.full_uniques.length.should eq(6)
+  end
+
+end
+
